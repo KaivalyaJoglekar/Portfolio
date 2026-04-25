@@ -6,48 +6,79 @@ import { useRef, useState } from 'react';
 const experiences = [
   {
     id: '01',
-    period: '2024 — PRESENT',
-    role: 'Senior Executive — Technical and Research Cell',
-    company: 'NMIMS University',
-    location: 'Mumbai, India',
-    description: 'Contributing to technical and research-oriented college initiatives through planning, coordination, and execution.',
-    achievements: [
-      'Planned and coordinated technical and research-focused initiatives.',
-      'Supported end-to-end execution across initiative workflows and activities.',
-      'Collaborated with peers to align planning and implementation.',
-      'Maintained structured coordination across responsibilities.',
+    company: 'TAQNEEQ TECH FEST',
+    location: 'Mumbai, Maharashtra, India',
+    description: 'Artist and guest operations across major fest activities with structured execution and cross-team alignment.',
+    timeline: [
+      {
+        role: 'Crew',
+        period: 'Oct 2025 — Mar 2026',
+        meta: 'On-site',
+        highlights: [
+          'Supported coordinated execution across high-volume event operations.',
+          'Contributed to rapid issue handling and smooth activity flow during live windows.',
+        ],
+      },
+      {
+        role: 'Sub-Head — Artist and Guest Management',
+        period: 'Oct 2024 — Jun 2025 · 9 mos',
+        meta: 'Full-time · On-site',
+        highlights: [
+          'Led a 12+ member team across artist logistics, movement, and stage readiness.',
+          'Built dynamic schedules with real-time updates to avoid delays.',
+          'Aligned hospitality, operations, and technical teams through unified workflows.',
+        ],
+      },
+      {
+        role: 'Executive',
+        period: 'Nov 2023 — Oct 2024 · 1 yr',
+        meta: 'Full-time · On-site',
+        highlights: [
+          'Managed guest relations and onboarding for event judges.',
+          'Coordinated schedules and on-ground logistics across event activities.',
+          'Delivered smooth experiences for guests and participants during execution.',
+        ],
+      },
     ],
-    tech: ['Planning', 'Coordination', 'Research Initiatives', 'Execution'],
+    focus: ['Team Leadership', 'Public Relations', 'Artist Logistics', 'Operations Coordination'],
   },
   {
     id: '02',
-    period: '2024 — PRESENT',
-    role: 'Artist & Guest Management — Taqneeq Tech Fest',
-    company: 'NMIMS University',
-    location: 'Mumbai, India',
-    description: 'Handled coordination and execution responsibilities as part of the Artist and Guest Management team.',
-    achievements: [
-      'Coordinated artist and guest management processes for event operations.',
-      'Supported on-ground execution to ensure smooth event flow.',
-      'Worked with teams to manage schedules and communication points.',
-      'Contributed to organized and timely execution during the fest.',
+    company: 'Technical and Research Cell',
+    location: 'Mumbai, Maharashtra, India',
+    description: 'Web and execution support for flagship initiatives including the Bombay Research Summit and Internship Fair.',
+    timeline: [
+      {
+        role: 'Crew',
+        period: 'Oct 2025 — Mar 2026',
+        meta: 'On-site',
+        highlights: [
+          'Supported event execution and coordination across key initiative workflows.',
+          'Collaborated with core teams to maintain smooth delivery during active timelines.',
+        ],
+      },
+      {
+        role: 'Senior Executive',
+        period: 'Aug 2024 — Jun 2025 · 11 mos',
+        meta: 'Full-time',
+        highlights: [
+          'Co-developed and deployed official event websites for the Bombay Research Summit and Internship Fair.',
+          'Built responsive interfaces and registration-ready workflows for student participation.',
+          'Delivered iterative updates for reliability before and during live events.',
+        ],
+      },
+      {
+        role: 'Executive',
+        period: 'Aug 2023 — Jun 2025 · 1 yr 11 mos',
+        meta: 'Full-time',
+        highlights: [
+          'Facilitated end-to-end coordination and guest relations for flagship events.',
+          'Worked across industry judges, corporate partners, and student participants.',
+          'Maintained structured communication and dependable operational flow.',
+        ],
+      },
     ],
-    tech: ['Coordination', 'Operations', 'Execution', 'Team Collaboration'],
-  },
-  {
-    id: '03',
-    period: '2025 — PRESENT',
-    role: 'Hackathons',
-    company: 'Various',
-    location: 'India',
-    description: 'Built functional prototypes under time constraints while collaborating with teammates.',
-    achievements: [
-      'Collaborated in teams to deliver working prototypes within short development cycles.',
-      'Focused on practical implementation and scope prioritization.',
-      'Converted ideas into functional demos under tight timelines.',
-      'Strengthened rapid problem-solving and communication in high-pressure sprints.',
-    ],
-    tech: ['Rapid Prototyping', 'Teamwork', 'Problem Solving', 'Execution'],
+    focus: ['Web Development', 'Management', 'Deployment', 'Coordination'],
   },
 ];
 
@@ -59,9 +90,25 @@ export const Experience = () => {
     target: containerRef,
     offset: ["start end", "end start"]
   });
+  const selectedExperience = experiences[activeExp];
+
+  const timelineVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const timelineItemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0 },
+  };
 
   return (
-    <section id="experience" className="py-32 px-6 md:px-12 relative" ref={containerRef}>
+    <section id="experience" className="scroll-mt-28 py-32 px-6 md:px-12 relative" ref={containerRef}>
       {/* Giant Background Number */}
       <motion.div 
         className="absolute top-1/2 -translate-y-1/2 right-0 pointer-events-none overflow-hidden"
@@ -73,9 +120,9 @@ export const Experience = () => {
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 0.03, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
-            className="text-[50vw] font-black leading-none text-white"
+            className="text-[50vw] font-black leading-none text-[var(--foreground)]"
           >
-            {experiences[activeExp].id}
+            {selectedExperience.id}
           </motion.span>
         </AnimatePresence>
       </motion.div>
@@ -115,17 +162,17 @@ export const Experience = () => {
                   <span className={`text-xs tracking-wider block mb-2 ${
                     activeExp === i ? 'text-[#d4a574]' : 'text-neutral-600'
                   }`}>
-                    {exp.period}
+                    {exp.timeline[0].period}
                   </span>
                   <h3 className={`text-xl font-bold tracking-tight transition-colors ${
                     activeExp === i ? 'text-white' : 'text-neutral-500'
                   }`}>
-                    {exp.role}
+                    {exp.company}
                   </h3>
                   <p className={`text-sm mt-1 transition-colors ${
                     activeExp === i ? 'text-neutral-400' : 'text-neutral-700'
                   }`}>
-                    {exp.company}
+                    {exp.timeline[0].role}
                   </p>
                 </motion.button>
               ))}
@@ -146,42 +193,68 @@ export const Experience = () => {
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-8 pb-8 border-b border-neutral-900">
                   <div>
-                    <span className="text-[#d4a574] text-sm tracking-wider">{experiences[activeExp].period}</span>
-                    <h3 className="text-3xl md:text-4xl font-black mt-2">{experiences[activeExp].role}</h3>
-                    <p className="text-neutral-500 mt-1">{experiences[activeExp].company} • {experiences[activeExp].location}</p>
+                    <span className="text-[#d4a574] text-sm tracking-wider">TIMELINE</span>
+                    <h3 className="text-3xl md:text-4xl font-black mt-2">{selectedExperience.company}</h3>
+                    <p className="text-neutral-500 mt-1">{selectedExperience.location}</p>
                   </div>
-                  <span className="text-6xl font-black text-stroke">{experiences[activeExp].id}</span>
+                  <span className="text-6xl font-black text-stroke">{selectedExperience.id}</span>
                 </div>
 
                 {/* Description */}
                 <p className="text-lg text-neutral-400 leading-relaxed mb-8">
-                  {experiences[activeExp].description}
+                  {selectedExperience.description}
                 </p>
 
-                {/* Achievements */}
+                {/* Internal Timeline */}
                 <div className="mb-8">
-                  <h4 className="text-xs text-[#d4a574] tracking-[0.3em] uppercase mb-4">KEY CONTRIBUTIONS</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {experiences[activeExp].achievements.map((achievement, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.1 }}
-                        className="flex items-start gap-3 group"
-                      >
-                        <span className="text-[#d4a574] mt-1">◆</span>
-                        <span className="text-neutral-300 group-hover:text-white transition-colors">{achievement}</span>
-                      </motion.div>
-                    ))}
+                  <h4 className="text-xs text-[#d4a574] tracking-[0.3em] uppercase mb-4">ROLES & TIMELINE</h4>
+                  <div className="relative pl-8">
+                    <motion.div
+                      key={`line-${activeExp}`}
+                      className="absolute left-2 top-2 bottom-2 w-px bg-neutral-900"
+                      initial={{ scaleY: 0 }}
+                      animate={{ scaleY: 1 }}
+                      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                      style={{ originY: 0 }}
+                    />
+                    <motion.div
+                      className="space-y-7"
+                      variants={timelineVariants}
+                      initial="hidden"
+                      animate="visible"
+                    >
+                      {selectedExperience.timeline.map((item, i) => (
+                        <motion.div
+                          key={`${item.role}-${item.period}`}
+                          variants={timelineItemVariants}
+                          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                          className="relative"
+                        >
+                          <motion.span
+                            className="absolute -left-[1.85rem] top-2 h-3.5 w-3.5 rounded-full border border-[#d4a574] bg-black"
+                            initial={{ scale: 0.6, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: i * 0.1 + 0.08, duration: 0.3 }}
+                          />
+                          <p className="text-xs text-neutral-500 tracking-[0.18em] uppercase">{item.period}</p>
+                          <h5 className="text-xl md:text-2xl font-bold text-[var(--foreground)] mt-2">{item.role}</h5>
+                          <p className="text-xs text-neutral-600 tracking-[0.18em] uppercase mt-2">{item.meta}</p>
+                          <div className="mt-3 space-y-2">
+                            {item.highlights.map((point, j) => (
+                              <p key={j} className="text-neutral-300 leading-relaxed">{point}</p>
+                            ))}
+                          </div>
+                        </motion.div>
+                      ))}
+                    </motion.div>
                   </div>
                 </div>
 
-                {/* Tech Stack */}
+                {/* Focus Areas */}
                 <div>
                   <h4 className="text-xs text-neutral-600 tracking-[0.3em] uppercase mb-4">FOCUS AREAS</h4>
                   <div className="flex flex-wrap gap-2">
-                    {experiences[activeExp].tech.map((t, i) => (
+                    {selectedExperience.focus.map((t, i) => (
                       <motion.span
                         key={t}
                         initial={{ opacity: 0, scale: 0.9 }}

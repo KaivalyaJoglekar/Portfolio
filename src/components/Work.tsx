@@ -1,10 +1,12 @@
 'use client';
 
+import Link from 'next/link';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 const projects = [
   {
+    slug: 'route-sense',
     num: '01',
     title: 'RouteSense',
     subtitle: 'Autonomous Logistics AI Agent',
@@ -14,8 +16,9 @@ const projects = [
     color: '#d4a574',
   },
   {
+    slug: 'elevate-ai',
     num: '02',
-    title: 'Pathwise AI',
+    title: 'Elevate AI',
     subtitle: 'Resume Analysis & Career Roadmap Platform',
     description: 'Analyzes resumes, maps skills against role requirements, identifies gaps, and provides targeted roadmap recommendations with visual insights.',
     tags: ['Next.js', 'Tailwind CSS', 'FastAPI', 'Gemini/OpenAI', 'JSearch API', 'Recharts'],
@@ -23,6 +26,7 @@ const projects = [
     color: '#74a5d4',
   },
   {
+    slug: 'celestial-body-classification',
     num: '03',
     title: 'Celestial Body Classification',
     subtitle: 'Machine Learning Research Project',
@@ -32,6 +36,7 @@ const projects = [
     color: '#a5d474',
   },
   {
+    slug: 'momento',
     num: '04',
     title: 'Momento',
     subtitle: 'Productivity & Journaling App',
@@ -41,6 +46,7 @@ const projects = [
     color: '#d474a5',
   },
   {
+    slug: 'neuro-stream',
     num: '05',
     title: 'NeuroStream',
     subtitle: 'AI Video Platform Microservice System',
@@ -113,19 +119,12 @@ const ProjectCard = ({
       }}
       className="group relative border-b border-neutral-900 cursor-pointer"
     >
-      {/* Hover Accent Line */}
-      <motion.div 
-        className="absolute left-0 top-0 bottom-0 w-1 transition-opacity duration-300"
-        animate={{ opacity: showDetails ? 1 : 0 }}
-        style={{ backgroundColor: project.color }}
-      />
-      
       <div className="py-10 md:py-16 flex items-center justify-between gap-8 relative">
         {/* Number with Parallax */}
         <motion.span 
           style={{
             x,
-            WebkitTextStroke: `1.5px ${showDetails ? project.color : 'rgba(255,255,255,0.28)'}`,
+            WebkitTextStroke: `1.5px ${showDetails ? project.color : 'rgba(255,255,240,0.28)'}`,
             color: 'transparent',
           }}
           animate={{ opacity: showDetails ? 0.42 : 0.2 }}
@@ -137,17 +136,17 @@ const ProjectCard = ({
         {/* Content */}
         <div className="relative z-10 ml-20 md:ml-40 flex-1">
           <div className="flex items-start md:items-center justify-between gap-4 flex-col md:flex-row">
-            <div className="overflow-hidden">
+            <div>
               <motion.div
                 initial={{ y: 60 }}
                 animate={isInView ? { y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 + 0.2, ease: [0.25, 0.1, 0, 1] }}
               >
                 <motion.h3 
-                  animate={{ x: showDetails ? 30 : 0 }}
+                  animate={{ x: 0 }}
                   transition={{ duration: 0.3 }}
                   className="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight transition-colors duration-300"
-                  style={{ color: showDetails ? project.color : 'white' }}
+                  style={{ color: showDetails ? project.color : '#FFFFF0' }}
                 >
                   {project.title}
                 </motion.h3>
@@ -179,10 +178,18 @@ const ProjectCard = ({
                   backgroundColor: showDetails ? project.color : 'transparent',
                 }}
                 transition={{ duration: 0.3 }}
-                className="w-14 h-14 border flex items-center justify-center"
+                className="relative w-14 h-14 border flex items-center justify-center"
               >
+                <Link
+                  href={`/projects#${project.slug}`}
+                  onClick={(event) => event.stopPropagation()}
+                  className="absolute inset-0 z-10"
+                  aria-label={`Open ${project.title} on projects page`}
+                >
+                  <span className="sr-only">Open project page</span>
+                </Link>
                 <motion.span 
-                  animate={{ color: showDetails ? '#000' : '#fff' }}
+                  animate={{ color: showDetails ? '#000' : '#FFFFF0' }}
                   className="text-lg"
                 >
                   ↗
@@ -198,7 +205,7 @@ const ProjectCard = ({
             transition={{ duration: 0.4, ease: [0.25, 0.1, 0, 1] }}
             className="overflow-hidden"
           >
-            <div className="flex flex-wrap items-start gap-3 mt-6 pt-6 border-t border-neutral-900">
+            <div className="flex flex-wrap items-start gap-3 mt-6 pt-6 border-t border-neutral-900/40">
               {project.tags.map((tag, i) => (
                 <motion.span 
                   key={i} 
@@ -208,7 +215,7 @@ const ProjectCard = ({
                   className="px-4 py-2 text-xs border border-neutral-800 uppercase tracking-wider whitespace-nowrap"
                   style={{
                     color: project.color,
-                    backgroundColor: showDetails ? 'rgba(255,255,255,0.03)' : 'transparent',
+                    backgroundColor: showDetails ? 'rgba(255,255,240,0.03)' : 'transparent',
                   }}
                 >
                   {tag}
@@ -260,7 +267,7 @@ export const Work = () => {
   const backgroundX = useTransform(scrollYProgress, [0, 1], ['0%', '-30%']);
 
   return (
-    <section id="work" ref={sectionRef} className="py-32 px-6 md:px-12 relative overflow-hidden">
+    <section id="work" ref={sectionRef} className="scroll-mt-28 py-32 px-6 md:px-12 relative overflow-hidden">
       {/* Scrolling Background Text */}
       <motion.div 
         className="absolute top-1/2 -translate-y-1/2 left-0 whitespace-nowrap pointer-events-none"
@@ -321,23 +328,13 @@ export const Work = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <motion.a 
-            href="#contact" 
-            className="group relative flex items-center gap-4 px-10 py-5 border border-neutral-800 overflow-hidden"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
+          <Link
+            href="/projects"
+            className="group inline-flex items-center gap-4 px-10 py-5 border border-neutral-800 text-sm tracking-[0.2em] uppercase text-neutral-300 hover:border-[#d4a574] hover:text-[#d4a574] transition-colors"
           >
-            <motion.div 
-              className="absolute inset-0 bg-[#d4a574]"
-              initial={{ x: '-100%' }}
-              whileHover={{ x: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-            <span className="relative z-10 text-sm tracking-[0.2em] uppercase text-neutral-400 group-hover:text-black transition-colors">
-              Explore More Work
-            </span>
-            <span className="relative z-10 text-[#d4a574] group-hover:text-black transition-colors">→</span>
-          </motion.a>
+            <span>View All Projects</span>
+            <span className="text-[#d4a574] transition-colors group-hover:text-[#d4a574]">→</span>
+          </Link>
         </motion.div>
       </div>
     </section>

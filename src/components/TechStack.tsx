@@ -77,7 +77,7 @@ export const TechStack = () => {
   const textX = useTransform(scrollYProgress, [0, 1], ['0%', '-20%']);
 
   return (
-    <section id="skills" className="py-32 px-6 md:px-12 relative overflow-hidden" ref={containerRef}>
+    <section id="skills" className="scroll-mt-28 py-32 px-6 md:px-12 relative overflow-hidden" ref={containerRef}>
       {/* Animated Background Elements */}
       <motion.div 
         className="absolute inset-0 pointer-events-none"
@@ -151,83 +151,17 @@ export const TechStack = () => {
           ))}
         </div>
 
-        {/* Additional Tools with Stagger Animation */}
-        <motion.div 
-          className="mt-20 pt-12 border-t border-neutral-900"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <motion.p 
-            className="text-xs text-neutral-600 tracking-wider mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            SKILLS BY GROUP
-          </motion.p>
-          <div className="flex flex-wrap gap-3">
-            {[
-              'Frontend: React, Next.js, Tailwind CSS, Framer Motion, Recharts, D3.js',
-              'Backend: FastAPI, Node.js, Express, Spring Boot, PostgreSQL, Firebase, Supabase, Redis',
-              'AI/ML: Machine Learning, SVM, Feature Engineering, Model Evaluation, LLM Workflows, Recommendation Systems',
-              'Cloud & Tools: Vercel, Render, Docker, Git, GitHub, Backblaze, S3-Compatible Storage',
-            ].map((tool, i) => (
-              <motion.span 
-                key={tool}
-                initial={{ opacity: 0, y: 20, scale: 0.8 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.03, duration: 0.4 }}
-                whileHover={{ 
-                  scale: 1.1, 
-                  backgroundColor: '#d4a574',
-                  color: '#000',
-                  transition: { duration: 0.2 }
-                }}
-                className="px-5 py-3 border border-neutral-800 text-neutral-500 text-sm tracking-wider cursor-pointer transition-colors"
-              >
-                {tool}
-              </motion.span>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Stats with Count-up Effect */}
-        <motion.div 
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6"
-          initial={{ opacity: 0, y: 50 }}
+        <motion.div
+          className="mt-16 pt-10 border-t border-neutral-900"
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
         >
-          {[
-            { value: '5+', label: 'Projects' },
-            { value: '1', label: 'Publication' },
-            { value: 'Mumbai', label: 'Location' },
-            { value: 'AI/ML + FS', label: 'Focus' },
-          ].map((stat, i) => (
-            <motion.div 
-              key={i}
-              className="text-center p-8 border border-neutral-900 hover:border-[#d4a574] transition-colors group"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              whileHover={{ y: -5 }}
-            >
-              <motion.span 
-                className="text-5xl md:text-6xl font-black text-[#d4a574] opacity-30 group-hover:opacity-100 transition-opacity block"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 + 0.2, type: "spring", stiffness: 200 }}
-              >
-                {stat.value}
-              </motion.span>
-              <span className="text-xs text-neutral-600 mt-2 block tracking-wider uppercase">{stat.label}</span>
-            </motion.div>
-          ))}
+          <p className="text-neutral-500 max-w-3xl leading-relaxed">
+            I pick technologies based on product constraints, scalability goals, and delivery speed.
+            If you are exploring a build, I can share a practical architecture approach.
+          </p>
         </motion.div>
       </div>
     </section>

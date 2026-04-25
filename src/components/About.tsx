@@ -5,10 +5,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
 const facts = [
-  { label: 'PROJECTS', value: '5+', icon: '◆' },
-  { label: 'PUBLICATION', value: '1', icon: '◇' },
-  { label: 'LOCATION', value: 'MUMBAI', icon: '○' },
-  { label: 'FOCUS', value: 'AI/ML + FULL STACK', icon: '●' },
+  { label: 'PROJECTS', value: ['5+'], icon: '◆', valueClassName: 'text-[1.8rem] md:text-[2.1rem]' },
+  { label: 'PUBLICATION', value: ['1'], icon: '◇', valueClassName: 'text-[1.8rem] md:text-[2.1rem]' },
+  { label: 'LOCATION', value: ['Mumbai'], icon: '○', valueClassName: 'text-[1.55rem] md:text-[1.8rem]' },
+  { label: 'FOCUS', value: ['AI/ML', 'Full Stack'], icon: '●', valueClassName: 'text-[1.35rem] md:text-[1.6rem]' },
 ];
 
 export const About = () => {
@@ -23,7 +23,7 @@ export const About = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
   return (
-    <section id="about" ref={containerRef} className="py-32 px-6 md:px-12 relative overflow-hidden min-h-screen">
+    <section id="about" ref={containerRef} className="scroll-mt-28 py-32 px-6 md:px-12 relative overflow-hidden min-h-screen">
       {/* Animated Background Grid */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -65,7 +65,7 @@ export const About = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <div className="relative group mx-auto w-full max-w-[460px]">
+            <div className="relative group mx-auto w-full max-w-[340px] md:max-w-[380px]">
               <div className="absolute -inset-2 rounded-2xl border border-neutral-800 pointer-events-none" />
               <div className="relative overflow-hidden rounded-2xl border border-neutral-900 bg-neutral-950 aspect-[3/4]">
                 <Image
@@ -74,7 +74,7 @@ export const About = () => {
                   width={900}
                   height={1200}
                   priority
-                  sizes="(max-width: 768px) 92vw, (max-width: 1200px) 50vw, 32vw"
+                  sizes="(max-width: 768px) 78vw, (max-width: 1200px) 42vw, 26vw"
                   className="w-full h-full object-cover object-[50%_20%] transition-transform duration-700 group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
@@ -123,11 +123,11 @@ export const About = () => {
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 max-w-5xl">
               {facts.map((fact, i) => (
                 <motion.div
                   key={fact.label}
-                  className="group relative border border-neutral-900 p-6 hover:border-[#d4a574] transition-all duration-300 cursor-pointer overflow-hidden"
+                  className="group relative min-h-[124px] min-w-0 border border-neutral-900 px-4 py-4 md:px-5 md:py-5 hover:border-[#d4a574] transition-all duration-300 overflow-hidden"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -137,12 +137,16 @@ export const About = () => {
                   {/* Hover Background */}
                   <div className="absolute inset-0 bg-[#d4a574] translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none" />
                   
-                  <div className="relative z-10">
-                    <span className="text-[#d4a574] group-hover:text-black text-xs mb-2 block transition-colors">{fact.icon}</span>
-                    <span className="text-3xl md:text-4xl font-black text-white group-hover:text-black block transition-colors">
-                      {fact.value}
-                    </span>
-                    <span className="text-[10px] text-neutral-600 group-hover:text-black/60 mt-2 block tracking-wider transition-colors">
+                  <div className="relative z-10 flex h-full flex-col justify-between">
+                    <span className="text-[#d4a574] group-hover:text-black text-[10px] mb-2 block transition-colors">{fact.icon}</span>
+                    <div className={`font-black text-white group-hover:text-black transition-colors leading-[0.95] tracking-tight ${fact.valueClassName}`}>
+                      {fact.value.map((line) => (
+                        <span key={line} className="block whitespace-nowrap">
+                          {line}
+                        </span>
+                      ))}
+                    </div>
+                    <span className="text-[10px] text-neutral-600 group-hover:text-black/60 mt-2 block tracking-[0.22em] transition-colors">
                       {fact.label}
                     </span>
                   </div>

@@ -3,7 +3,8 @@
 
 :root {
   --background: #000000;
-  --foreground: #fafafa;
+  --foreground: #FFFFF0;
+  --color-white: #FFFFF0;
   --accent: #d4a574;
   --accent-light: #e8c9a8;
 }
@@ -18,6 +19,10 @@ body {
 
 .font-signature {
   font-family: var(--font-playfair), Georgia, serif;
+}
+
+.font-calligraphy {
+  font-family: var(--font-calligraphy), "Brush Script MT", "Lucida Handwriting", cursive;
 }
 
 .font-display {
@@ -54,7 +59,7 @@ body {
 
 /* Text Stroke */
 .text-stroke {
-  -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+  -webkit-text-stroke: 1px rgba(255,255,240,0.3);
   -webkit-text-fill-color: transparent;
   color: transparent;
   background: transparent;
@@ -175,10 +180,10 @@ body {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 240, 0.03);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 240, 0.1);
+  border-left: 1px solid rgba(255, 255, 240, 0.05);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }

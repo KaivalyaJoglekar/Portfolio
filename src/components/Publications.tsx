@@ -17,7 +17,7 @@ const publication = {
 
 export const Publications = () => {
   return (
-    <section id="publications" className="py-32 px-6 md:px-12 relative overflow-hidden">
+    <section id="publications" className="scroll-mt-28 py-32 px-6 md:px-12 relative overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           className="mb-20"

@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 export const Preloader = ({ onComplete }: { onComplete: () => void }) => {
     const [count, setCount] = useState(0);
     const [text, setText] = useState('');
-    const fullText = 'KAIVALYA';
+    const fullText = 'Kaivalya';
 
     useEffect(() => {
         const duration = 2000;
@@ -77,7 +77,7 @@ export const Preloader = ({ onComplete }: { onComplete: () => void }) => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
                 >
-                    <span className="text-4xl md:text-6xl font-black tracking-[0.3em] text-[#d4a574]">
+                    <span className="font-calligraphy text-6xl md:text-8xl text-[#d4a574] leading-none">
                         {text}<span className="animate-pulse">_</span>
                     </span>
                 </motion.div>

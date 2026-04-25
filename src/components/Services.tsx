@@ -85,7 +85,7 @@ const ServiceItem = ({ service, index, isActive, onHover }: {
               <motion.h3 
                 className="text-2xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight transition-colors"
                 animate={{ 
-                  color: isActive ? '#d4a574' : '#ffffff',
+                  color: isActive ? '#d4a574' : '#FFFFF0',
                   x: isActive ? 20 : 0,
                 }}
                 transition={{ duration: 0.3 }}
