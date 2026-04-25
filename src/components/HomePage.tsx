@@ -27,11 +27,18 @@ const ScrollReveal = ({ children, delay = 0 }: { children: React.ReactNode; dela
 );
 
 const shouldSkipPreloader = () => {
+  if (typeof window !== 'undefined' && window.sessionStorage.getItem('skipPreloader') === '1') {
+    return true;
+  }
   const searchParams = new URLSearchParams(window.location.search);
   return searchParams.get('from') === 'projects' || searchParams.get('skipPreloader') === '1';
 };
 
 const getSectionTarget = () => {
+  if (typeof window !== 'undefined') {
+    const storedSection = window.sessionStorage.getItem('returnSection');
+    if (storedSection) return storedSection;
+  }
   const searchParams = new URLSearchParams(window.location.search);
   return searchParams.get('section') ?? window.location.hash.replace('#', '');
 };
@@ -62,6 +69,12 @@ export const HomePage = () => {
 
     const frame = window.requestAnimationFrame(scrollToSection);
     const timeout = window.setTimeout(scrollToSection, 450);
+
+    if (window.sessionStorage.getItem('returnSection')) {
+      window.sessionStorage.removeItem('returnSection');
+      window.sessionStorage.removeItem('skipPreloader');
+      window.history.replaceState(null, '', window.location.pathname + window.location.hash);
+    }
 
     return () => {
       window.cancelAnimationFrame(frame);
