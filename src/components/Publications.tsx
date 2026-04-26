@@ -26,7 +26,7 @@ export const Publications = () => {
           viewport={{ once: true }}
         >
           <span className="text-xs text-neutral-500 tracking-[0.3em] uppercase block mb-4">/05</span>
-          <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tight">Publications</h2>
+          <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tight">Publications</h2>
           <p className="text-neutral-600 mt-4 max-w-2xl">
             Research work in machine learning and scientific image classification.
           </p>

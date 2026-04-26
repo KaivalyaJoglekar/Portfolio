@@ -136,7 +136,7 @@ export const Experience = () => {
           viewport={{ once: true }}
         >
           <span className="text-xs text-neutral-500 tracking-[0.3em] uppercase block mb-4">/07</span>
-          <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase">
+          <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase">
             Experience
           </h2>
         </motion.div>

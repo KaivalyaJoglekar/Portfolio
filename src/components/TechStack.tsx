@@ -126,7 +126,7 @@ export const TechStack = () => {
           </motion.span>
           <div className="overflow-hidden">
             <motion.h2 
-              className="text-6xl md:text-8xl font-black tracking-tighter uppercase"
+              className="text-5xl md:text-7xl font-black tracking-tighter uppercase"
               initial={{ y: 100 }}
               animate={isHeaderInView ? { y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.1, 0, 1] }}

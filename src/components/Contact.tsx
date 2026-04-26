@@ -87,7 +87,7 @@ export const Contact = () => {
               Open For Internships And Product Roles
             </span>
 
-            <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-[0.95] mt-7">
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.95] mt-7">
               Contact
               <span className="block text-stroke-accent">Me</span>
             </h2>

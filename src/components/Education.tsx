@@ -40,7 +40,7 @@ export const Education = () => {
           viewport={{ once: true }}
         >
           <span className="text-xs text-neutral-500 tracking-[0.3em] uppercase block mb-4">/06</span>
-          <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tight">Education</h2>
+          <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tight">Education</h2>
           <p className="text-neutral-600 mt-4 max-w-2xl">
             Academic foundation in computer engineering and technical problem-solving.
           </p>
