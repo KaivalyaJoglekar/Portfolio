@@ -31,7 +31,7 @@ const greatVibes = Great_Vibes({
 });
 
 export const metadata: Metadata = {
-  title: "Kaivalya Joglekar | Digital Architect",
+  title: "Kaivalya Joglekar",
   description: "Crafting immersive digital experiences.",
   keywords: ["developer", "engineer", "portfolio", "software", "web development"],
 };

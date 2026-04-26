@@ -118,10 +118,10 @@ export const HomePage = () => {
             <Publications />
           </ScrollReveal>
           <ScrollReveal delay={0.08}>
-            <Education />
+            <Experience />
           </ScrollReveal>
           <ScrollReveal delay={0.09}>
-            <Experience />
+            <Education />
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
             <Contact />

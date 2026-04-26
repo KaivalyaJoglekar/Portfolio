@@ -6,9 +6,9 @@ import { useRef } from 'react';
 
 const facts = [
   { label: 'PROJECTS', value: ['5+'], icon: '◆', valueClassName: 'text-[1.8rem] md:text-[2.1rem]' },
-  { label: 'PUBLICATION', value: ['1'], icon: '◇', valueClassName: 'text-[1.8rem] md:text-[2.1rem]' },
-  { label: 'LOCATION', value: ['Mumbai'], icon: '○', valueClassName: 'text-[1.55rem] md:text-[1.8rem]' },
-  { label: 'FOCUS', value: ['AI/ML', 'Full Stack'], icon: '●', valueClassName: 'text-[1.35rem] md:text-[1.6rem]' },
+  { label: 'PUBLICATION', value: ['1'], icon: '◆', valueClassName: 'text-[1.8rem] md:text-[2.1rem]' },
+  { label: 'LOCATION', value: ['Mumbai'], icon: '◆', valueClassName: 'text-[1.55rem] md:text-[1.8rem]' },
+  { label: 'FOCUS', value: ['AI/ML', 'Full Stack'], icon: '◆', valueClassName: 'text-[1.35rem] md:text-[1.6rem]' },
 ];
 
 export const About = () => {
@@ -173,7 +173,7 @@ export const About = () => {
                 href="#work"
                 className="inline-flex items-center gap-4 px-8 py-4 border border-neutral-800 text-neutral-400 tracking-wider text-sm hover:border-white hover:text-white transition-colors"
               >
-                <span>SEE SELECTED WORK</span>
+                <span>RESUME</span>
               </a>
             </motion.div>
           </motion.div>

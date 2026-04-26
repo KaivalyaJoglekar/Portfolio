@@ -5,8 +5,7 @@ import { motion } from 'framer-motion';
 
 export const Preloader = ({ onComplete }: { onComplete: () => void }) => {
     const [count, setCount] = useState(0);
-    const [text, setText] = useState('');
-    const fullText = 'Kaivalya';
+    const signatureProgress = Math.min(count / 100, 1);
 
     useEffect(() => {
         const duration = 2000;
@@ -25,20 +24,8 @@ export const Preloader = ({ onComplete }: { onComplete: () => void }) => {
             });
         }, intervalTime);
 
-        // Text reveal
-        let charIndex = 0;
-        const textTimer = setInterval(() => {
-            if (charIndex <= fullText.length) {
-                setText(fullText.slice(0, charIndex));
-                charIndex++;
-            } else {
-                clearInterval(textTimer);
-            }
-        }, 150);
-
         return () => {
             clearInterval(timer);
-            clearInterval(textTimer);
         };
     }, [onComplete]);
 
@@ -77,9 +64,27 @@ export const Preloader = ({ onComplete }: { onComplete: () => void }) => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
                 >
-                    <span className="font-calligraphy text-6xl md:text-8xl text-[#d4a574] leading-none">
-                        {text}<span className="animate-pulse">_</span>
-                    </span>
+                    <div className="relative">
+                        <span className="preloader-signature-ghost text-[clamp(3rem,9vw,7rem)] leading-none">
+                            Kaivalya Joglekar
+                        </span>
+                        <motion.span
+                            className="preloader-signature absolute inset-0 text-[clamp(3rem,9vw,7rem)] leading-none"
+                            style={{ clipPath: `inset(0 ${100 - signatureProgress * 100}% 0 0)` }}
+                        >
+                            Kaivalya Joglekar
+                        </motion.span>
+                        <motion.span
+                            className="absolute top-1/2 h-[2px] w-14 -translate-y-1/2 rounded-full bg-[#f1d4b2]"
+                            style={{ left: `calc(${signatureProgress * 100}% - 0.75rem)` }}
+                            animate={{ opacity: [0.45, 1, 0.45] }}
+                            transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+                        />
+                        <motion.span
+                            className="preloader-flourish absolute left-[8%] right-[4%] top-[88%]"
+                            style={{ clipPath: `inset(0 ${100 - signatureProgress * 100}% 0 0)` }}
+                        />
+                    </div>
                 </motion.div>
             </div>
             

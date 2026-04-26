@@ -43,7 +43,7 @@ export const Header = () => {
             <span className="text-lg font-black text-[#d4a574] group-hover:text-black transition-colors">K</span>
           </div>
           <div className="hidden md:block">
-            <div className="text-xs tracking-[0.2em] text-neutral-600">KAIVALYA</div>
+            <div className="text-sm font-extrabold tracking-[0.18em] text-white uppercase">Kaivalya Joglekar</div>
             <div className="text-xs text-neutral-700 font-mono">{time} IST</div>
           </div>
         </a>
