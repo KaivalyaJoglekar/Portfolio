@@ -39,7 +39,7 @@ const projects: Project[] = [
       'Next.js 14, React, Tailwind CSS, FastAPI, PostgreSQL, PostGIS, LangGraph, scikit-learn, SimPy, Google Gemini API, Docker.',
     impact:
       'RouteSense demonstrates how agentic AI and predictive machine learning can transform reactive logistics into proactive, resilient operations.',
-    viewHref: 'https://github.com/kanishjn8/CC2 0',
+    viewHref: 'https://github.com/kanishjn8/CC2',
     viewLabel: 'View Repository',
     color: '#d4a574',
   },
