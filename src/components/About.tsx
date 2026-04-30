@@ -13,7 +13,7 @@ const facts = [
 
 export const About = () => {
   const containerRef = useRef(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -31,9 +31,9 @@ export const About = () => {
           backgroundSize: '100px 100px'
         }} />
       </div>
-      
+
       {/* Giant Scrolling Text */}
-      <motion.div 
+      <motion.div
         style={{ y, opacity }}
         className="absolute -left-20 top-1/2 -translate-y-1/2 pointer-events-none"
       >
@@ -44,7 +44,7 @@ export const About = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           className="mb-20"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -55,11 +55,11 @@ export const About = () => {
             About Me
           </h2>
         </motion.div>
-        
+
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
           {/* Left - Profile Image */}
-          <motion.div 
+          <motion.div
             className="lg:col-span-5"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -67,14 +67,15 @@ export const About = () => {
           >
             <div className="relative group mx-auto w-full max-w-[340px] md:max-w-[380px]">
               <div className="absolute -inset-2 rounded-2xl border border-neutral-800 pointer-events-none" />
-              <div className="relative overflow-hidden rounded-2xl border border-neutral-900 bg-neutral-950 aspect-[3/4]">
+              <div className="relative overflow-hidden rounded-2xl border border-neutral-900 bg-neutral-950 aspect-[3/4] z-[110]">
                 <Image
-                  src="/kaivalya.jpeg"
+                  src="/kaivalya_portfolio.jpeg"
                   alt="Kaivalya Joglekar"
                   width={900}
                   height={1200}
                   priority
-                  sizes="(max-width: 768px) 78vw, (max-width: 1200px) 42vw, 26vw"
+                  quality={100}
+                  unoptimized={true}
                   className="w-full h-full object-cover object-[50%_20%] transition-transform duration-700 group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
@@ -84,9 +85,9 @@ export const About = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Location Tag */}
-            <motion.div 
+            <motion.div
               className="mt-12 flex items-center gap-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -99,7 +100,7 @@ export const About = () => {
           </motion.div>
 
           {/* Right - Bio & Stats */}
-          <motion.div 
+          <motion.div
             className="lg:col-span-7 lg:pl-12"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -136,7 +137,7 @@ export const About = () => {
                 >
                   {/* Hover Background */}
                   <div className="absolute inset-0 bg-[#d4a574] translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none" />
-                  
+
                   <div className="relative z-10 flex h-full flex-col justify-between">
                     <span className="text-[#d4a574] group-hover:text-black text-[10px] mb-2 block transition-colors">{fact.icon}</span>
                     <div className={`font-black text-white group-hover:text-black transition-colors leading-[0.95] tracking-tight ${fact.valueClassName}`}>
@@ -155,21 +156,21 @@ export const About = () => {
             </div>
 
             {/* CTA */}
-            <motion.div 
+            <motion.div
               className="mt-12 flex flex-wrap gap-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
             >
-              <a 
+              <a
                 href="#contact"
                 className="group inline-flex items-center gap-4 px-8 py-4 bg-[#d4a574] text-black font-bold tracking-wider text-sm hover:bg-white transition-colors"
               >
                 <span>CONTACT ME</span>
                 <span className="group-hover:translate-x-2 transition-transform">→</span>
               </a>
-              <a 
+              <a
                 href="#work"
                 className="inline-flex items-center gap-4 px-8 py-4 border border-neutral-800 text-neutral-400 tracking-wider text-sm hover:border-white hover:text-white transition-colors"
               >

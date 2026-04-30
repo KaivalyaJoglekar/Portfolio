@@ -64,7 +64,7 @@ export const HomePage = () => {
 
       const headerOffset = 112;
       const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
-      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      window.scrollTo({ top: Math.max(0, top), behavior: 'instant' });
     };
 
     const frame = window.requestAnimationFrame(scrollToSection);
@@ -92,8 +92,6 @@ export const HomePage = () => {
       className="min-h-screen bg-black text-[var(--foreground)] selection:bg-[#d4a574]/20 selection:text-[#d4a574]"
     >
       {!loading && <RingScene />}
-
-      <div className="noise-overlay" />
 
       <AnimatePresence mode="wait">
         {loading && <Preloader onComplete={() => setLoading(false)} />}

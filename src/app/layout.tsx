@@ -47,11 +47,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${spaceGrotesk.variable} ${greatVibes.variable} antialiased bg-black text-[var(--foreground)]`}
       >
         <SmoothScroll />
-        {/* Noise overlay for texture */}
-        <div className="noise-overlay" aria-hidden="true" />
         
+        {/* Noise overlay for texture - kept behind main content with z-index 0 */}
+        <div className="noise-overlay" aria-hidden="true" />
+
         {/* Main content */}
-        {children}
+        <div className="relative z-10 isolate">
+          {children}
+        </div>
       </body>
     </html>
   );

@@ -13,7 +13,7 @@ const projects = [
     description: 'Monitors shipments, predicts delay risk, reasons through root causes, and recommends next actions in an agentic logistics workflow.',
     tags: ['FastAPI', 'LangGraph', 'Gemini', 'Scikit-learn', 'SimPy', 'PostGIS', 'Next.js'],
     year: '2025',
-    color: '#c0813a',
+    color: '#0d9488',
   },
   {
     slug: 'elevate-ai',

@@ -66,13 +66,13 @@ export const Preloader = ({ onComplete }: { onComplete: () => void }) => {
                 >
                     <div className="relative">
                         <span className="preloader-signature-ghost text-[clamp(3rem,9vw,7rem)] leading-none">
-                            Kaivalya Joglekar
+                            Kaivalya
                         </span>
                         <motion.span
                             className="preloader-signature absolute inset-0 text-[clamp(3rem,9vw,7rem)] leading-none"
                             style={{ clipPath: `inset(0 ${100 - signatureProgress * 100}% 0 0)` }}
                         >
-                            Kaivalya Joglekar
+                            Kaivalya
                         </motion.span>
                         <motion.span
                             className="absolute top-1/2 h-[2px] w-14 -translate-y-1/2 rounded-full bg-[#f1d4b2]"

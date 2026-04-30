@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 const experiences = [
   {
@@ -90,7 +90,6 @@ export const Experience = () => {
     target: containerRef,
     offset: ["start end", "end start"]
   });
-  const selectedExperience = experiences[activeExp];
 
   const timelineVariants = {
     hidden: { opacity: 0 },
@@ -110,22 +109,23 @@ export const Experience = () => {
   return (
     <section id="experience" className="scroll-mt-28 py-32 px-6 md:px-12 relative" ref={containerRef}>
       {/* Giant Background Number */}
-      <motion.div 
-        className="absolute top-1/2 -translate-y-1/2 right-0 pointer-events-none overflow-hidden"
-        style={{ x: useTransform(scrollYProgress, [0, 1], [0, -100]) }}
-      >
-        <AnimatePresence mode="wait">
-          <motion.span 
-            key={activeExp}
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 0.03, y: 0 }}
-            exit={{ opacity: 0, y: -100 }}
-            className="text-[50vw] font-black leading-none text-[var(--foreground)]"
-          >
-            {selectedExperience.id}
-          </motion.span>
-        </AnimatePresence>
-      </motion.div>
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="sticky top-0 h-screen w-full flex items-center justify-end overflow-hidden">
+          <motion.div style={{ x: useTransform(scrollYProgress, [0, 1], [0, -100]) }}>
+            <AnimatePresence mode="wait">
+              <motion.span 
+                key={activeExp}
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 0.03, y: 0 }}
+                exit={{ opacity: 0, y: -100 }}
+                className="text-[50vw] font-black leading-none text-[var(--foreground)]"
+              >
+                {experiences[activeExp]?.id}
+              </motion.span>
+            </AnimatePresence>
+          </motion.div>
+        </div>
+      </div>
       
       <div className="max-w-7xl mx-auto relative">
         {/* Section Header */}
@@ -148,7 +148,9 @@ export const Experience = () => {
               {experiences.map((exp, i) => (
                 <motion.button
                   key={exp.id}
-                  onClick={() => setActiveExp(i)}
+                  onClick={() => {
+                    document.getElementById(`experience-${exp.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }}
                   className={`w-full text-left p-6 border-l-2 transition-all duration-300 ${
                     activeExp === i 
                       ? 'border-[#d4a574]' 
@@ -180,29 +182,36 @@ export const Experience = () => {
           </div>
 
           {/* Right - Experience Details */}
-          <div className="lg:col-span-8">
-            <AnimatePresence mode="wait">
+          <div className="lg:col-span-8 space-y-16">
+            {experiences.map((exp, i) => (
               <motion.div
-                key={activeExp}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ duration: 0.4 }}
-                className="border border-neutral-900 p-8 md:p-12"
+                key={exp.id}
+                id={`experience-${exp.id}`}
+                initial={{ opacity: 0, x: i % 2 !== 0 ? 50 : 0, y: i % 2 === 0 ? 30 : 0 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6 }}
+                className="border border-neutral-900 p-8 md:p-12 scroll-mt-32 relative"
               >
+                {/* Scroll Spy Sensor */}
+                <motion.div 
+                  className="absolute inset-y-0 left-0 w-px pointer-events-none"
+                  onViewportEnter={() => setActiveExp(i)}
+                  viewport={{ margin: "-40% 0px -40% 0px" }}
+                />
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-8 pb-8 border-b border-neutral-900">
                   <div>
                     <span className="text-[#d4a574] text-sm tracking-wider">TIMELINE</span>
-                    <h3 className="text-3xl md:text-4xl font-black mt-2">{selectedExperience.company}</h3>
-                    <p className="text-neutral-500 mt-1">{selectedExperience.location}</p>
+                    <h3 className="text-3xl md:text-4xl font-black mt-2">{exp.company}</h3>
+                    <p className="text-neutral-500 mt-1">{exp.location}</p>
                   </div>
-                  <span className="text-6xl font-black text-stroke">{selectedExperience.id}</span>
+                  <span className="text-6xl font-black text-stroke">{exp.id}</span>
                 </div>
 
                 {/* Description */}
                 <p className="text-lg text-neutral-400 leading-relaxed mb-8">
-                  {selectedExperience.description}
+                  {exp.description}
                 </p>
 
                 {/* Internal Timeline */}
@@ -210,20 +219,21 @@ export const Experience = () => {
                   <h4 className="text-xs text-[#d4a574] tracking-[0.3em] uppercase mb-4">ROLES & TIMELINE</h4>
                   <div className="relative pl-8">
                     <motion.div
-                      key={`line-${activeExp}`}
                       className="absolute left-2 top-2 bottom-2 w-px bg-neutral-900"
                       initial={{ scaleY: 0 }}
-                      animate={{ scaleY: 1 }}
-                      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                      whileInView={{ scaleY: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                       style={{ originY: 0 }}
                     />
                     <motion.div
                       className="space-y-7"
                       variants={timelineVariants}
                       initial="hidden"
-                      animate="visible"
+                      whileInView="visible"
+                      viewport={{ once: true }}
                     >
-                      {selectedExperience.timeline.map((item, i) => (
+                      {exp.timeline.map((item, i) => (
                         <motion.div
                           key={`${item.role}-${item.period}`}
                           variants={timelineItemVariants}
@@ -233,7 +243,8 @@ export const Experience = () => {
                           <motion.span
                             className="absolute -left-[1.85rem] top-2 h-3.5 w-3.5 rounded-full border border-[#d4a574] bg-black"
                             initial={{ scale: 0.6, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
+                            whileInView={{ scale: 1, opacity: 1 }}
+                            viewport={{ once: true }}
                             transition={{ delay: i * 0.1 + 0.08, duration: 0.3 }}
                           />
                           <p className="text-xs text-neutral-500 tracking-[0.18em] uppercase">{item.period}</p>
@@ -254,11 +265,12 @@ export const Experience = () => {
                 <div>
                   <h4 className="text-xs text-neutral-600 tracking-[0.3em] uppercase mb-4">FOCUS AREAS</h4>
                   <div className="flex flex-wrap gap-2">
-                    {selectedExperience.focus.map((t, i) => (
+                    {exp.focus.map((t, i) => (
                       <motion.span
                         key={t}
                         initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
                         transition={{ delay: i * 0.05 }}
                         className="px-4 py-2 bg-neutral-900 text-neutral-400 text-sm tracking-wider hover:bg-[#d4a574] hover:text-black transition-all cursor-default"
                       >
@@ -268,7 +280,7 @@ export const Experience = () => {
                   </div>
                 </div>
               </motion.div>
-            </AnimatePresence>
+            ))}
           </div>
         </div>
       </div>

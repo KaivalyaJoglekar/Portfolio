@@ -41,7 +41,7 @@ const projects: Project[] = [
       'RouteSense demonstrates how agentic AI and predictive machine learning can transform reactive logistics into proactive, resilient operations.',
     viewHref: 'https://github.com/kanishjn8/CC2',
     viewLabel: 'View Repository',
-    color: '#c0813a',
+    color: '#0d9488',
   },
   {
     slug: 'elevate-ai',

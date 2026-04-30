@@ -61,7 +61,7 @@ export const Publications = () => {
 
             <div className="mt-10 flex flex-wrap gap-4">
               <a
-                href="/IVP_Research_Paper.pdf"
+                href="/research"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-3 px-6 py-3 bg-[#d4a574] text-black font-bold tracking-wider text-sm hover:bg-white transition-colors"

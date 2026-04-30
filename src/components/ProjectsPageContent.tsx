@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BackToWorkLink } from '@/components/BackToWorkLink';
 
@@ -21,6 +22,10 @@ type Project = {
 };
 
 export const ProjectsPageContent = ({ projects }: { projects: Project[] }) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
   return (
     <main className="min-h-screen bg-black text-[var(--foreground)] px-6 md:px-12 py-20 relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
