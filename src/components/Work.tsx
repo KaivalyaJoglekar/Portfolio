@@ -13,7 +13,7 @@ const projects = [
     description: 'Monitors shipments, predicts delay risk, reasons through root causes, and recommends next actions in an agentic logistics workflow.',
     tags: ['FastAPI', 'LangGraph', 'Gemini', 'Scikit-learn', 'SimPy', 'PostGIS', 'Next.js'],
     year: '2025',
-    color: '#d4a574',
+    color: '#c0813a',
   },
   {
     slug: 'elevate-ai',
@@ -53,7 +53,7 @@ const projects = [
     description: 'Microservice-based AI video platform for upload, processing, search, and analytics with a focus on workflow orchestration and frontend-backend integration.',
     tags: ['Node.js', 'Express', 'PostgreSQL', 'Redis', 'S3-Compatible Storage', 'Next.js', 'Render', 'Vercel'],
     year: '2026',
-    color: '#d4a574',
+    color: '#7c6fd1',
   },
 ];
 
@@ -152,7 +152,7 @@ const ProjectCard = ({
                 </motion.h3>
               </motion.div>
               <motion.p 
-                className="text-neutral-600 text-sm md:text-base mt-2"
+                className="text-neutral-400 text-sm md:text-base mt-2"
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 + 0.4 }}
@@ -163,7 +163,7 @@ const ProjectCard = ({
             
             <div className="flex items-center gap-6">
               <motion.span 
-                className="text-neutral-700 text-sm font-mono"
+                className="text-neutral-400 text-sm font-mono"
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 + 0.5 }}
@@ -306,9 +306,9 @@ export const Work = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-neutral-600 max-w-xs text-right text-sm flex items-center gap-2 justify-end"
+            className="text-neutral-400 max-w-xs text-right text-sm flex items-center gap-2 justify-end"
           >
-            <span className="w-8 h-px bg-neutral-700" />
+            <span className="w-8 h-px bg-neutral-500" />
             {supportsHover ? 'HOVER TO EXPLORE' : 'TAP TO EXPAND'}
           </motion.p>
         </div>
