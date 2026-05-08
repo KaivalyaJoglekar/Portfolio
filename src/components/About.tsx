@@ -110,7 +110,7 @@ export const About = () => {
             {/* Bio Text */}
             <div className="border-l-2 border-[#d4a574] pl-8 mb-16">
               <p className="text-2xl md:text-3xl font-light text-neutral-300 leading-relaxed">
-                I am currently pursuing a <span className="text-white font-bold">B.Tech in Computer Engineering</span> at NMIMS MPSTME,
+                I am currently pursuing  <span className="text-white font-bold">B.Tech in Computer Engineering</span> at NMIMS MPSTME,
                 with a strong focus on <span className="text-[#d4a574]">full-stack development, AI/ML, backend systems</span>, and applied research.
               </p>
               <p className="text-lg text-neutral-500 mt-6 leading-relaxed">

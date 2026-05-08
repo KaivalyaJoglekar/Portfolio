@@ -3,9 +3,12 @@
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 
+type LiveLink = { label: string; sublabel: string; href: string; tag: string };
+
 const experiences = [
   {
     id: '01',
+    liveLinks: undefined as LiveLink[] | undefined,
     company: 'TAQNEEQ TECH FEST',
     location: 'Mumbai, Maharashtra, India',
     description: 'Artist and guest operations across major fest activities with structured execution and cross-team alignment.',
@@ -79,6 +82,20 @@ const experiences = [
       },
     ],
     focus: ['Web Development', 'Management', 'Deployment', 'Coordination'],
+    liveLinks: [
+      {
+        label: 'TRC Internship Fair',
+        sublabel: 'Student portal · Event registration · Live slots',
+        href: 'https://trc-internshipfair.vercel.app/',
+        tag: 'Vercel',
+      },
+      {
+        label: 'Bombay Research Summit',
+        sublabel: 'Event showcase · Photography · Research summit',
+        href: 'https://bombayresearchsummit.netlify.app/',
+        tag: 'Netlify',
+      },
+    ],
   },
 ];
 
@@ -279,6 +296,76 @@ export const Experience = () => {
                     ))}
                   </div>
                 </div>
+
+                {/* Live Projects — deployed work showcase */}
+                {exp.liveLinks && exp.liveLinks.length > 0 && (
+                  <motion.div
+                    className="mt-8 pt-8 border-t border-neutral-900"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.55, delay: 0.12 }}
+                  >
+                    {/* Section label */}
+                    <div className="flex items-center gap-4 mb-6">
+                      <span className="text-[10px] text-[#d4a574] tracking-[0.34em] uppercase font-semibold">
+                        Deployed Work
+                      </span>
+                      <span className="flex-1 h-px bg-gradient-to-r from-[#d4a574]/30 to-transparent" />
+                    </div>
+
+                    <div className="space-y-3">
+                      {exp.liveLinks.map((link, li) => (
+                        <motion.a
+                          key={link.href}
+                          href={link.href}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          initial={{ opacity: 0, y: 14 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: li * 0.12 + 0.08, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                          className="group relative flex items-center justify-between gap-4 px-5 py-4 border border-neutral-900 bg-neutral-950/60 hover:bg-neutral-900/80 hover:border-[#d4a574]/40 transition-all duration-300 overflow-hidden"
+                        >
+                          {/* Sweep glow on hover */}
+                          <span className="absolute inset-0 translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-out bg-gradient-to-r from-[#d4a574]/06 to-transparent pointer-events-none" />
+
+                          {/* Left: live dot + label + url */}
+                          <div className="flex items-center gap-4 min-w-0">
+                            {/* Animated live indicator */}
+                            <span className="relative flex-shrink-0 flex items-center justify-center w-8 h-8 border border-neutral-800 group-hover:border-[#d4a574]/50 transition-colors duration-300">
+                              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                              <span className="absolute w-2 h-2 rounded-full bg-emerald-500 animate-ping opacity-60" />
+                            </span>
+
+                            <div className="min-w-0">
+                              <p className="text-sm font-bold text-[var(--foreground)] group-hover:text-[#d4a574] transition-colors duration-300 truncate">
+                                {link.label}
+                              </p>
+                              <p className="text-[11px] text-neutral-600 truncate mt-0.5">
+                                {link.href.replace('https://', '')}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Right: platform badge + arrow */}
+                          <div className="flex items-center gap-3 flex-shrink-0">
+                            <span className="hidden sm:inline-flex px-2.5 py-1 text-[9px] tracking-[0.2em] uppercase border border-neutral-800 text-neutral-500 group-hover:border-[#d4a574]/30 group-hover:text-[#d4a574]/70 transition-colors duration-300">
+                              {link.tag}
+                            </span>
+                            <motion.span
+                              className="w-8 h-8 flex items-center justify-center text-neutral-600 group-hover:text-[#d4a574] transition-colors duration-300"
+                              whileHover={{ rotate: 45 }}
+                              transition={{ type: 'spring', stiffness: 300 }}
+                            >
+                              ↗
+                            </motion.span>
+                          </div>
+                        </motion.a>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
               </motion.div>
             ))}
           </div>
