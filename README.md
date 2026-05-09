@@ -1,80 +1,79 @@
-# Kaivalya Joglekar - Personal Portfolio
+# Portfolio
 
-<div align="center">
-  <img src="./public/kaivalya_portfolio.jpeg" alt="Portfolio Preview" width="100%" style="border-radius: 8px;"/>
-  <br />
-  <p><em>Crafting immersive digital experiences.</em></p>
-</div>
+A modern, interactive developer portfolio application built using the Next.js App Router. This project leverages React Server Components, high-performance animations, and 3D rendering to create a dynamic user experience.
 
-A modern, cinematic personal portfolio showcasing projects, experience, and technical skills. Built with a focus on fluid animations, premium aesthetics, and high performance.
+## Technology Stack
 
-## 🚀 Features
-
-- **Immersive 3D Elements:** Integrated with React Three Fiber & Drei for interactive canvas experiences.
-- **Fluid Animations:** Powered by Framer Motion for scroll-linked and viewport-triggered animations.
-- **Smooth Scrolling:** Utilizes Lenis for a buttery smooth scrolling experience across all devices.
-- **Premium UI/UX:** High-contrast Dark Mode with noise overlays, custom typography, and glassmorphism effects.
-- **Modern Stack:** Built on the bleeding edge using Next.js (App Router), React 19, and Tailwind CSS v4.
-
-## 💻 Tech Stack
-
-- **Framework:** [Next.js](https://nextjs.org/) (App Router)
+### Core
+- **Framework:** [Next.js](https://nextjs.org/)
 - **Library:** [React 19](https://react.dev/)
+- **Language:** TypeScript
+
+### Styling & UI
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **Typography:** `next/font` (Geist, Space Grotesk, Playfair Display)
+
+### Animation & 3D
 - **Animations:** [Framer Motion](https://www.framer.com/motion/)
-- **Smooth Scroll:** [Lenis](https://github.com/darkroomengineering/lenis)
-- **3D Rendering:** [Three.js](https://threejs.org/) & [React Three Fiber](https://docs.pmnd.rs/react-three-fiber/)
-- **Typography:** Geist, Playfair Display, Space Grotesk, Great Vibes via Next/Font
+- **3D Rendering:** [Three.js](https://threejs.org/)
+- **React 3D Integration:** [React Three Fiber](https://docs.pmnd.rs/react-three-fiber/) & [@react-three/drei](https://github.com/pmndrs/drei)
+- **Smooth Scrolling:** [Lenis](https://github.com/darkroomengineering/lenis)
 
-## 📁 Project Structure
+## Project Structure
 
-```bash
+```text
 src/
-├── app/          # Next.js App Router (layout, page routing)
-├── components/   # Reusable UI components
-│   ├── 3d/       # React Three Fiber components
-│   ├── ui/       # Foundational UI elements
-│   └── ...       # Section components (Hero, About, Experience, Work, TechStack, etc.)
-└── public/       # Static assets (images, fonts, PDFs)
+├── app/                  # Next.js App Router entries and global layout
+├── components/           # UI Components
+│   ├── 3d/               # React Three Fiber canvas elements
+│   ├── ui/               # Base reusable UI components
+│   └── ...               # Core page sections (Hero, Experience, Work, etc.)
+└── public/               # Static assets
 ```
 
-## 🛠️ Getting Started
+## Getting Started
 
-First, clone the repository and install the dependencies:
+### Prerequisites
+- Node.js 18.x or later
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+1. Clone the repository
+2. Install the dependencies:
 
 ```bash
-# Install dependencies
 npm install
-# or
-yarn install
-# or
-pnpm install
 ```
 
-Then, run the development server:
+### Development
+
+Run the local development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
-## 🎨 Aesthetics & Design System
+### Build & Production
 
-The portfolio implements a premium, high-contrast aesthetic:
-- **Typography-Driven:** Strategic use of diverse fonts (Geist for UI, Playfair for elegant headings, Space Grotesk for modern accents).
-- **Cinematic Feel:** Incorporates noise overlays, dynamic background numbering, and alternating scroll-reveal entrance animations.
-- **Responsive Layout:** Carefully constructed UI that seamlessly scales down for mobile and tablet devices while retaining high-end aesthetics.
+To build the project for production:
 
-## 👨‍💻 Author
+```bash
+npm run build
+```
 
-**Kaivalya Joglekar**
-- [GitHub](https://github.com/KaivalyaJoglekar)
-- [LinkedIn](https://linkedin.com/in/kaivalyajoglekar)
+To start the production server:
 
----
-*Built with Next.js and React 19.*
+```bash
+npm run start
+```
+
+## Linting
+
+To run ESLint and check for code quality issues:
+
+```bash
+npm run lint
+```
