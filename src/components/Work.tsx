@@ -55,6 +55,16 @@ const projects = [
     year: '2026',
     color: '#7c6fd1',
   },
+  {
+    slug: 'biosentinel',
+    num: '06',
+    title: 'BioSentinel',
+    subtitle: 'Continuous Behavioral Biometrics Authentication',
+    description: 'Continuous, invisible second-factor authentication system designed to monitor session integrity using real-time behavioral biometrics and anomaly detection.',
+    tags: ['React', 'FastAPI', 'WebSockets', 'scikit-learn', 'Python'],
+    year: '2025',
+    color: '#d4a574',
+  },
 ];
 
 const ProjectCard = ({

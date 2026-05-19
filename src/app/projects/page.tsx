@@ -126,6 +126,26 @@ const projects: Project[] = [
     viewLabel: 'Currently Working',
     color: '#7c6fd1',
   },
+  {
+    slug: 'biosentinel',
+    num: '06',
+    title: 'BioSentinel',
+    subtitle: 'Continuous Behavioral Biometrics Authentication',
+    description:
+      'BioSentinel is a continuous, invisible second-factor authentication system designed to monitor session integrity after the initial login. It streams user interactions—like keystrokes, mouse movements, and scrolling—in real-time to an anomaly detection engine. By constantly scoring behavior windows against an enrolled user profile, it autonomously detects account takeovers and forces re-authentication the moment a session drifts, preventing unauthorized access post-login.',
+    tags: ['React', 'FastAPI', 'WebSockets', 'scikit-learn', 'Python'],
+    year: '2025',
+    keyFeatures: [
+      'Continuous Monitoring Pipeline: Engineered a real-time telemetry pipeline using React and FastAPI via WebSockets to dynamically capture, batch, and process behavioral events in 5-second windows.',
+      'Anomaly Detection Models: Developed a per-user Isolation Forest and Random Forest machine learning architecture to accurately calculate risk scores based on 34 unique behavioral features and trigger re-authentication workflows.',
+      'Adaptive Learning Engine: Integrated a Face ID-style adaptive learning system that continuously updates baseline profiles using clean sessions while strictly discarding anomalous sessions to completely block model-poisoning attacks.'
+    ],
+    techStack: 'React (Vite), FastAPI, Python, WebSockets, scikit-learn (Isolation Forest & Random Forest), SQLite, Pytest',
+    impact: 'BioSentinel demonstrates how continuous behavioral biometrics and adaptive machine learning can transform one-time static logins into proactive, resilient, zero-trust session security.',
+    viewHref: 'https://github.com/kanishjn8/BioSentinel',
+    viewLabel: 'View Repository',
+    color: '#d4a574',
+  },
 ];
 
 export default function ProjectsPage() {
