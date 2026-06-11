@@ -1,388 +1,213 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from 'framer-motion';
-import { BackToWorkLink } from '@/components/BackToWorkLink';
-import { RingScene } from '@/components/3d/RingScene';
+import Image from 'next/image';
+import Link from 'next/link';
+import type { Project } from '@/lib/projects';
 
-type Project = {
-  slug: string;
-  num: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  tags: string[];
-  year: string;
-  color: string;
-  period?: string;
-  keyFeatures?: string[];
-  techStack?: string;
-  impact?: string;
-  viewHref?: string;
-  viewLabel?: string;
+type ProjectMeta = {
+  domain: string;
+  status: 'Deployed' | 'Repository' | 'In progress';
+  category: 'AI' | 'Research' | 'Web' | 'Security' | 'Automation';
+  stack: string;
+  signal: string;
 };
 
-function hexToRgb(hex: string) {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return `${r},${g},${b}`;
-}
+const PROJECT_META: Record<string, ProjectMeta> = {
+  'internship-fair-technical-research-cell': {
+    domain: 'Event platform',
+    status: 'Deployed',
+    category: 'Web',
+    stack: 'Responsive UI · Registration · Vercel',
+    signal: 'Official event platform',
+  },
+  'bombay-research-summit': {
+    domain: 'Research event web',
+    status: 'Deployed',
+    category: 'Research',
+    stack: 'Responsive UI · Event content · Netlify',
+    signal: 'Official summit presence',
+  },
+  'route-sense': {
+    domain: 'Agentic logistics',
+    status: 'Repository',
+    category: 'Automation',
+    stack: 'Next.js · FastAPI · LangGraph · PostGIS',
+    signal: '60+ simulated cities',
+  },
+  'elevate-ai': {
+    domain: 'Career intelligence',
+    status: 'Deployed',
+    category: 'AI',
+    stack: 'React · FastAPI · Gemini · Recharts',
+    signal: 'Resume-to-role workflow',
+  },
+  'celestial-body-classification': {
+    domain: 'Astronomical ML',
+    status: 'Repository',
+    category: 'Research',
+    stack: 'Python · SVM · Astropy · OpenCV',
+    signal: '74.63% test accuracy',
+  },
+  momento: {
+    domain: 'Mobile productivity',
+    status: 'Repository',
+    category: 'Web',
+    stack: 'Flutter · Dart · Firebase',
+    signal: 'Four connected workflows',
+  },
+  'neuro-stream': {
+    domain: 'Video microservices',
+    status: 'In progress',
+    category: 'Automation',
+    stack: 'Node.js · PostgreSQL · Redis · Next.js',
+    signal: 'Microservice architecture',
+  },
+  biosentinel: {
+    domain: 'Behavioral biometrics',
+    status: 'Repository',
+    category: 'Security',
+    stack: 'React · FastAPI · WebSockets · scikit-learn',
+    signal: '34 behavioral features',
+  },
+};
 
-/* ─── Tag ──────────────────────────────────────────────────────────────── */
-const Tag = ({ children, color }: { children: string; color: string }) => (
-  <span
-    className="px-3 py-1.5 text-[10px] border uppercase tracking-[0.18em] transition-all duration-300 hover:scale-105"
-    style={{
-      borderColor: `rgba(${hexToRgb(color)},0.4)`,
-      color,
-      backgroundColor: `rgba(${hexToRgb(color)},0.07)`,
-    }}
-  >
-    {children}
-  </span>
-);
+const CATEGORY_COLORS: Record<ProjectMeta['category'], string> = {
+  AI: '#9b87d4',
+  Research: '#d6a84b',
+  Web: '#8396ad',
+  Security: '#d36b67',
+  Automation: '#67a97a',
+};
 
-/* ─── Project Card ─────────────────────────────────────────────────────── */
-const StackCard = ({ project }: { project: Project }) => {
-  const [hovered, setHovered] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
-  const isLive =
-    project.viewHref?.startsWith('http') &&
-    project.viewLabel !== 'View Repository' &&
-    project.viewLabel !== 'Currently Working';
-  const isWIP = project.viewLabel === 'Currently Working';
-  const rgb = hexToRgb(project.color);
+const STATUS_COLORS: Record<ProjectMeta['status'], string> = {
+  Deployed: '#67a97a',
+  Repository: '#8a94a6',
+  'In progress': '#d6a84b',
+};
+
+const PROJECT_ORDER = [
+  'elevate-ai',
+  'route-sense',
+  'celestial-body-classification',
+  'momento',
+  'neuro-stream',
+  'biosentinel',
+  'internship-fair-technical-research-cell',
+  'bombay-research-summit',
+];
+
+const ProjectBrief = ({ project, index }: { project: Project; index: number }) => {
+  const meta = PROJECT_META[project.slug];
 
   return (
-    <motion.article
-      id={project.slug}
-      className="relative scroll-mt-28 mb-8 md:mb-10"
-      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 48, filter: 'blur(12px)' }}
-      whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, filter: 'blur(0px)' }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+    <article
+      className="group relative isolate overflow-hidden border border-white/12 bg-white/[0.015] transition-[border-color,background-color] duration-200 hover:border-white/30 hover:bg-white/[0.025] md:h-[20.5rem]"
+      style={{ '--project-accent': project.color } as React.CSSProperties}
     >
-      <motion.div
-        className="relative group"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        whileHover={shouldReduceMotion ? undefined : { y: -6 }}
-        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <motion.div
-          className="absolute -inset-px pointer-events-none z-10"
-          animate={{
-            boxShadow: hovered
-              ? `0 0 0 1px rgba(${rgb},0.55), 0 0 50px rgba(${rgb},0.12), inset 0 0 70px rgba(${rgb},0.04)`
-              : `0 0 0 1px rgba(255,255,255,0.04)`,
-          }}
-          transition={{ duration: 0.35 }}
-        />
-
-        <div className="relative bg-black/90 backdrop-blur-md border border-neutral-900 overflow-hidden">
-          <motion.div
-            className="absolute top-0 left-0 right-0 h-[3px] origin-left"
-            style={{ background: `linear-gradient(90deg, ${project.color} 0%, transparent 75%)` }}
-            initial={shouldReduceMotion ? { scaleX: 1 } : { scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+      <div className="relative z-10 grid gap-5 p-5 md:h-full md:grid-cols-[minmax(13rem,0.34fr)_minmax(0,1fr)] md:gap-8 md:p-6">
+        <Link
+          href={`/projects/${project.slug}`}
+          className="relative h-36 overflow-hidden border border-white/10 bg-neutral-950 active:scale-[0.99] md:h-full md:min-h-52"
+          aria-label={`Open ${project.title} case study`}
+        >
+          <Image
+            src={project.image}
+            alt={`${project.title} interface`}
+            fill
+            unoptimized
+            sizes="(max-width: 768px) 100vw, 28vw"
+            className={`${project.imageClassName ?? 'object-cover'} opacity-72 grayscale-[12%] transition-[opacity,filter] duration-200 group-hover:opacity-92 group-hover:grayscale-0`}
           />
+          <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-black/75 px-3 py-2 font-mono text-[9px] text-neutral-400">
+            <span>{project.tags.slice(0, 2).join(' · ')}</span>
+            <span style={{ color: project.color }}>{project.num}</span>
+          </div>
+        </Link>
 
-          <motion.span
-            style={{
-              fontSize: 'clamp(5.5rem, 11vw, 9rem)',
-              color: project.color,
-            }}
-            className="pointer-events-none absolute right-3 top-5 font-black leading-none select-none"
-            animate={{
-              opacity: hovered ? 0.13 : 0.06,
-              x: hovered && !shouldReduceMotion ? -8 : 0,
-            }}
-            transition={{ duration: 0.35 }}
-          >
-            {project.num}
-          </motion.span>
-
-          <div className="relative p-7 md:p-10 lg:p-12">
-            <div className="flex items-start justify-between gap-4 mb-5">
-              <div className="flex items-center gap-3">
-                <span
-                  className="text-[10px] tracking-[0.3em] border px-3 py-1.5 uppercase font-bold"
-                  style={{
-                    borderColor: `rgba(${rgb},0.45)`,
-                    color: project.color,
-                    backgroundColor: `rgba(${rgb},0.07)`,
-                  }}
-                >
-                  {project.num}
-                </span>
-                <span className="text-[10px] font-mono text-neutral-600">
-                  {project.period ?? project.year}
-                </span>
-              </div>
-
-              <AnimatePresence mode="wait">
-                {isLive && (
-                  <motion.span
-                    key="live"
-                    initial={{ opacity: 0, scale: 0.75 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="inline-flex items-center gap-2 px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase border border-emerald-900/50 text-emerald-400 bg-emerald-950/30"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    Live
-                  </motion.span>
-                )}
-                {isWIP && (
-                  <motion.span
-                    key="wip"
-                    initial={{ opacity: 0, scale: 0.75 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="inline-flex items-center gap-2 px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase border border-amber-900/50 text-amber-400 bg-amber-950/30"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                    In Progress
-                  </motion.span>
-                )}
-              </AnimatePresence>
+        <div className="flex min-w-0 flex-col justify-between">
+          <div>
+            <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
+              <span className="font-mono text-[10px]" style={{ color: CATEGORY_COLORS[meta.category] }}>{String(index + 1).padStart(2, '0')}</span>
+              <span style={{ color: CATEGORY_COLORS[meta.category] }}>{meta.domain}</span>
+              <span className="inline-flex items-center gap-2 text-neutral-400">
+                <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: STATUS_COLORS[meta.status] }} />
+                {meta.status}
+              </span>
+              <span className="ml-auto font-mono text-[10px] text-neutral-600">{project.year}</span>
             </div>
 
-            <div className="overflow-hidden mb-1 pr-10 md:pr-16">
+          <Link href={`/projects/${project.slug}`} className="inline-block active:scale-[0.99]">
               <h2
-                className="font-black tracking-tight leading-[0.96] uppercase max-w-[10ch] md:max-w-[12ch]"
-                style={{
-                  color: project.color,
-                  fontSize: 'clamp(2.15rem, 4.2vw, 4.6rem)',
-                  textShadow: `0 0 36px rgba(${rgb},0.2)`,
-                }}
+                className="font-geist max-w-[30ch] text-wrap-balance text-[clamp(1.45rem,2vw,2.15rem)] font-semibold uppercase leading-[1] tracking-[-0.03em] transition-[color,opacity] duration-200 group-hover:opacity-90"
+                style={{ color: project.color }}
               >
-                {project.title}
-              </h2>
-            </div>
+              {project.title}
+            </h2>
+          </Link>
+          <p className="mt-2 text-xs font-medium text-neutral-500">{project.subtitle}</p>
+          <p className="mt-4 max-w-[65ch] text-sm leading-6 text-neutral-400 md:line-clamp-4">{project.description}</p>
+          </div>
 
-            <p className="text-neutral-500 text-sm mb-5">{project.subtitle}</p>
-
-            <div
-              className="h-px mb-6"
-              style={{ background: `linear-gradient(90deg, rgba(${rgb},0.55), transparent)` }}
-            />
-
-            <div className="grid md:grid-cols-2 gap-6 mb-6">
-              <div>
-                <p className="text-neutral-300 leading-relaxed text-sm">{project.description}</p>
-              </div>
-
-              {project.keyFeatures && project.keyFeatures.length > 0 && (
-                <div>
-                  <p
-                    className="text-[9px] tracking-[0.3em] uppercase mb-3 font-semibold"
-                    style={{ color: `rgba(${rgb},0.75)` }}
-                  >
-                    Highlights
-                  </p>
-                  <div className="space-y-2">
-                    {project.keyFeatures.slice(0, 3).map((feat) => (
-                      <div key={feat} className="flex items-start gap-2.5">
-                        <span className="mt-1.5 text-[7px] flex-shrink-0" style={{ color: project.color }}>
-                          ◆
-                        </span>
-                        <p className="text-xs text-neutral-400 leading-relaxed">{feat}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {(project.techStack || project.impact) && (
-              <div className="grid gap-3 md:grid-cols-2 mb-6">
-                {project.techStack && (
-                  <div
-                    className="p-3.5 border"
-                    style={{ borderColor: `rgba(${rgb},0.18)`, background: `rgba(${rgb},0.04)` }}
-                  >
-                    <p
-                      className="text-[9px] tracking-[0.26em] uppercase mb-2 font-semibold"
-                      style={{ color: `rgba(${rgb},0.65)` }}
-                    >
-                      Tech Stack
-                    </p>
-                    <p className="text-xs text-neutral-400 leading-relaxed">{project.techStack}</p>
-                  </div>
-                )}
-                {project.impact && (
-                  <div
-                    className="p-3.5 border"
-                    style={{ borderColor: `rgba(${rgb},0.18)`, background: `rgba(${rgb},0.04)` }}
-                  >
-                    <p
-                      className="text-[9px] tracking-[0.26em] uppercase mb-2 font-semibold"
-                      style={{ color: `rgba(${rgb},0.65)` }}
-                    >
-                      Impact
-                    </p>
-                    <p className="text-xs text-neutral-400 leading-relaxed">{project.impact}</p>
-                  </div>
-                )}
-              </div>
-            )}
-
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-5 border-t border-neutral-900/70">
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <Tag key={tag} color={project.color}>
-                    {tag}
-                  </Tag>
-                ))}
-              </div>
-
-              {project.viewHref ? (
-                <motion.a
-                  href={project.viewHref.replaceAll(' ', '%20')}
-                  target={project.viewHref.startsWith('http') ? '_blank' : undefined}
-                  rel={project.viewHref.startsWith('http') ? 'noreferrer' : undefined}
-                  className="flex-shrink-0 inline-flex items-center gap-3 px-7 py-3 text-[11px] tracking-[0.22em] uppercase font-bold border transition-all duration-300"
-                  style={{ borderColor: project.color, color: project.color }}
-                  whileHover={
-                    shouldReduceMotion
-                      ? undefined
-                      : { backgroundColor: project.color, color: '#000', gap: '20px' }
-                  }
-                >
-                  {project.viewLabel ?? 'Open'} <span className="text-base">↗</span>
-                </motion.a>
-              ) : (
-                <span className="flex-shrink-0 inline-flex items-center gap-2 px-7 py-3 border border-neutral-900 text-[11px] tracking-[0.18em] uppercase text-neutral-700">
-                  {project.viewLabel ?? 'Private'} <span>•</span>
-                </span>
-              )}
-            </div>
+          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-white/10 pt-4">
+            <strong className="text-xs font-medium text-neutral-200">{meta.signal}</strong>
+            <span className="text-xs text-neutral-600">{meta.stack}</span>
+            <Link href={`/projects/${project.slug}`} className="ml-auto inline-flex items-center gap-3 border border-white/15 px-3 py-2 text-xs text-neutral-300 transition-[border-color,color] duration-150 hover:border-white/50 hover:text-white">
+              Case study <span>→</span>
+            </Link>
           </div>
         </div>
-      </motion.div>
-    </motion.article>
+      </div>
+    </article>
   );
 };
 
-/* ─── Page ─────────────────────────────────────────────────────────────── */
 export const ProjectsPageContent = ({ projects }: { projects: Project[] }) => {
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, []);
-
-  const shouldReduceMotion = useReducedMotion();
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: heroScroll } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  });
-  const heroY = useTransform(heroScroll, [0, 1], [0, 80]);
-  const heroOpacity = useTransform(heroScroll, [0, 0.6], [1, 0]);
+  const orderedProjects = PROJECT_ORDER
+    .map((slug) => projects.find((project) => project.slug === slug))
+    .filter(Boolean) as Project[];
+  const deployedCount = projects.filter((project) => PROJECT_META[project.slug].status === 'Deployed').length;
+  const categories = Object.keys(CATEGORY_COLORS) as ProjectMeta['category'][];
 
   return (
-    <main className="min-h-screen bg-black text-[var(--foreground)] relative">
-      <RingScene />
-
-      <div className="fixed inset-0 opacity-[0.022] pointer-events-none z-0">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(212,165,116,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(212,165,116,0.5) 1px, transparent 1px)',
-            backgroundSize: '80px 80px',
-          }}
-        />
-      </div>
-
-      <div ref={heroRef} className="relative z-10 px-6 md:px-12 pt-24 pb-10 overflow-hidden">
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="max-w-6xl mx-auto">
-          <motion.span
-            className="text-xs text-neutral-500 tracking-[0.36em] uppercase block mb-5"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+    <main className="min-h-screen bg-black text-[var(--foreground)]">
+      <div className="mx-auto max-w-[110rem] px-5 pb-16 pt-5 md:px-10">
+        <nav className="flex items-center justify-between border-b border-white/15 pb-4">
+          <Link
+            href="/"
+            className="inline-flex min-h-11 items-center gap-3 border border-white/20 px-5 font-sans text-sm font-medium text-neutral-200 transition-[background-color,border-color,color] duration-150 hover:border-white/60 hover:bg-white/5 hover:text-white"
           >
-            / Projects
-          </motion.span>
+            <span aria-hidden="true">←</span> Back to home
+          </Link>
+          <span className="font-mono text-[10px] text-neutral-500">Engineering work · {projects.length} projects</span>
+        </nav>
 
-          <div className="overflow-hidden mb-1">
-            <motion.p
-              className="font-black tracking-tight uppercase leading-none"
-              style={{
-                fontSize: 'clamp(1.5rem, 3vw, 2.75rem)',
-                color: 'var(--foreground)',
-              }}
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
-            >
-              Project
-            </motion.p>
+        <header className="grid gap-6 border-b border-white/15 py-8 lg:grid-cols-[minmax(0,1fr)_minmax(19rem,0.5fr)] lg:items-end">
+          <div>
+            <h1 className="text-[clamp(3rem,6vw,5.8rem)] font-semibold uppercase leading-[0.9] tracking-[-0.04em]">Projects</h1>
+            <p className="mt-4 max-w-xl text-sm leading-6 text-neutral-400">
+              Eight engineering case studies across applied AI, research, web systems, security, and automation.
+            </p>
           </div>
-          <div className="overflow-hidden mb-4">
-            <motion.h1
-              className="font-black tracking-tight uppercase leading-none"
-              style={{
-                fontSize: 'clamp(2.9rem, 6.3vw, 5.8rem)',
-                color: 'var(--foreground)',
-              }}
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.72, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            >
-              Archive
-            </motion.h1>
+          <div className="flex flex-wrap gap-x-5 gap-y-3 lg:justify-end">
+            <span className="text-xs text-neutral-500">{projects.length} documented</span>
+            <span className="text-xs text-neutral-500">{deployedCount} deployed</span>
+            {categories.map((category) => (
+              <span key={category} className="inline-flex items-center gap-2 text-xs text-neutral-500">
+                <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: CATEGORY_COLORS[category] }} />
+                {category}
+              </span>
+            ))}
           </div>
+        </header>
 
-          <motion.div
-            className="h-[2px] mb-6"
-            style={{
-              background: 'linear-gradient(90deg,#d4a574,rgba(212,165,116,0.06))',
-              maxWidth: '18rem',
-            }}
-            initial={{ scaleX: 0, transformOrigin: 'left' }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          />
+        <section className="grid gap-3 pt-3" aria-label="Project case studies">
+          {orderedProjects.map((project, index) => <ProjectBrief key={project.slug} project={project} index={index} />)}
+        </section>
 
-          <motion.p
-            className="text-neutral-400 max-w-lg leading-relaxed mb-6 text-sm"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.42 }}
-          >
-            A curated index of product builds, research systems, and engineering experiments.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.54 }}
-          >
-            <BackToWorkLink />
-          </motion.div>
-        </motion.div>
-      </div>
-
-      <div className="relative z-10 px-6 md:px-12 pb-28">
-        <div className="max-w-6xl mx-auto">
-          {projects.map((project) => (
-            <StackCard
-              key={project.slug}
-              project={project}
-            />
-          ))}
-        </div>
+        <footer className="mt-8 flex items-center justify-between border-t border-white/15 pt-5 text-xs text-neutral-600">
+          <Link href="/" className="transition-colors hover:text-[#d4a574]">← Main portfolio</Link>
+          <span>Every project opens into a technical case study</span>
+        </footer>
       </div>
     </main>
   );

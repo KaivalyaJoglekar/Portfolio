@@ -13,7 +13,7 @@ const projects = [
     description: 'Monitors shipments, predicts delay risk, reasons through root causes, and recommends next actions in an agentic logistics workflow.',
     tags: ['FastAPI', 'LangGraph', 'Gemini', 'Scikit-learn', 'SimPy', 'PostGIS', 'Next.js'],
     year: '2025',
-    color: '#0d9488',
+    color: '#d36b67',
   },
   {
     slug: 'elevate-ai',
@@ -23,7 +23,7 @@ const projects = [
     description: 'Analyzes resumes, maps skills against role requirements, identifies gaps, and provides targeted roadmap recommendations with visual insights.',
     tags: ['Next.js', 'Tailwind CSS', 'FastAPI', 'Gemini/OpenAI', 'JSearch API', 'Recharts'],
     year: '2025',
-    color: '#74a5d4',
+    color: '#f59e0b',
   },
   {
     slug: 'celestial-body-classification',
@@ -63,7 +63,7 @@ const projects = [
     description: 'Continuous, invisible second-factor authentication system designed to monitor session integrity using real-time behavioral biometrics and anomaly detection.',
     tags: ['React', 'FastAPI', 'WebSockets', 'scikit-learn', 'Python'],
     year: '2025',
-    color: '#d4a574',
+    color: '#d36b67',
   },
 ];
 

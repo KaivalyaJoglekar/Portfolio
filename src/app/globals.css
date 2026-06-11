@@ -25,35 +25,12 @@ body {
   font-family: var(--font-calligraphy), "Brush Script MT", "Lucida Handwriting", cursive;
 }
 
-.preloader-signature,
-.preloader-signature-ghost {
-  font-family: var(--font-calligraphy), "Brush Script MT", "Lucida Handwriting", cursive;
-  white-space: nowrap;
-  letter-spacing: 0;
-}
-
-.preloader-signature {
-  color: #e7c39d;
-  text-shadow:
-    0 0 1px rgba(231, 195, 157, 0.7),
-    0 10px 30px rgba(212, 165, 116, 0.18);
-  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.5));
-}
-
-.preloader-signature-ghost {
-  color: rgba(212, 165, 116, 0.12);
-}
-
-.preloader-flourish {
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, rgba(212, 165, 116, 0), rgba(212, 165, 116, 0.85) 18%, rgba(241, 212, 178, 0.95) 48%, rgba(212, 165, 116, 0.75) 78%, rgba(212, 165, 116, 0));
-  box-shadow: 0 0 18px rgba(212, 165, 116, 0.22);
-  transform: rotate(-1.8deg);
-}
-
 .font-display {
   font-family: var(--font-space), system-ui, sans-serif;
+}
+
+.font-geist {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
 .text-accent {

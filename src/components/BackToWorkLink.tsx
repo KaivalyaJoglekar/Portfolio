@@ -4,7 +4,6 @@ import Link from 'next/link';
 
 export const BackToWorkLink = () => {
   const handleClick = () => {
-    window.sessionStorage.setItem('skipPreloader', '1');
     window.sessionStorage.setItem('returnSection', 'work');
   };
 
