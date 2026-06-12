@@ -124,6 +124,24 @@ export const ProjectDetailPage = ({ project, nextProject }: { project: Project; 
           ))}
         </section>
 
+        <section className="grid gap-6 border-b border-white/15 py-8 md:grid-cols-[13rem_minmax(0,1fr)] md:items-start">
+          <div>
+            <h2 className="text-lg font-semibold uppercase tracking-[-0.02em]">Technologies used</h2>
+            <p className="mt-2 text-xs leading-5 text-neutral-600">{project.tags.length} core tools and platforms</p>
+          </div>
+          <ul className="flex flex-wrap gap-2">
+            {project.tags.map((technology) => (
+              <li
+                key={technology}
+                className="border border-white/15 bg-white/[0.025] px-3 py-2 text-xs text-neutral-300"
+                style={{ borderColor: `${accent}55` }}
+              >
+                {technology}
+              </li>
+            ))}
+          </ul>
+        </section>
+
         <section className="grid gap-10 border-b border-white/15 py-14 lg:grid-cols-[minmax(14rem,0.5fr)_minmax(0,1.5fr)] lg:py-20">
           <div>
             <h2 className="text-3xl font-semibold uppercase tracking-[-0.03em]">System architecture</h2>

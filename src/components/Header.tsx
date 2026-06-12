@@ -70,14 +70,16 @@ export const Header = () => {
           ))}
         </nav>
 
-        {/* CTA */}
-        <a 
-          href="mailto:kaivalyajoglekar416@gmail.com" 
-          className="group flex items-center gap-3 px-5 py-3 bg-[#d4a574] text-black text-sm font-bold uppercase tracking-wider hover:bg-white transition-colors"
-        >
-          <span>Contact Me</span>
-          <span className="group-hover:translate-x-1 transition-transform">→</span>
-        </a>
+        {/* Primary action */}
+        <div className="flex items-center">
+          <a
+            href="#contact"
+            className="group inline-flex min-h-11 items-center gap-2 bg-[#d4a574] px-3 text-xs font-bold uppercase tracking-wider text-black transition-[background-color,transform] duration-150 hover:bg-white active:scale-[0.98] sm:px-4"
+          >
+            <span>Contact</span>
+            <span className="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
     </motion.header>
   );

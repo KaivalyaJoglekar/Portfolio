@@ -85,7 +85,7 @@ export const projects: Project[] = [
     viewHref: 'https://github.com/kanishjn8/CC2',
     viewLabel: 'View Repository',
     image: '/projects/route-sense.png',
-    color: '#0d9488',
+    color: '#16a394',
   },
   {
     slug: 'elevate-ai',
@@ -111,7 +111,7 @@ export const projects: Project[] = [
     viewHref: 'https://elevate-ai-psi.vercel.app/',
     viewLabel: 'View Live App',
     image: '/projects/elevate-ai.png',
-    color: '#f59e0b',
+    color: '#ff5c39',
   },
   {
     slug: 'celestial-body-classification',
@@ -193,6 +193,6 @@ export const projects: Project[] = [
     viewHref: 'https://github.com/kanishjn8/BioSentinel',
     viewLabel: 'View Repository',
     image: '/projects/biosentinel.png',
-    color: '#0d9488',
+    color: '#e05a78',
   },
 ];

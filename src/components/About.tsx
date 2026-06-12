@@ -171,10 +171,12 @@ export const About = () => {
                 <span className="group-hover:translate-x-2 transition-transform">→</span>
               </a>
               <a
-                href="#work"
+                href="/Kaivalya_Joglekar_Resume.pdf"
+                download
                 className="inline-flex items-center gap-4 px-8 py-4 border border-neutral-800 text-neutral-400 tracking-wider text-sm hover:border-white hover:text-white transition-colors"
               >
                 <span>RESUME</span>
+                <span>↓</span>
               </a>
             </motion.div>
           </motion.div>

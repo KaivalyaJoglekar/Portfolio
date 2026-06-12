@@ -9,6 +9,11 @@
   --accent-light: #e8c9a8;
 }
 
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

@@ -2,6 +2,7 @@
 
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float } from '@react-three/drei';
+import { useReducedMotion } from 'framer-motion';
 import { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 
@@ -28,7 +29,7 @@ function Ring({ radius, tube, rotation, speed, color }: {
 
   return (
     <mesh ref={ref} rotation={rotation}>
-      <torusGeometry args={[radius, tube, 64, 128]} />
+      <torusGeometry args={[radius, tube, 32, 96]} />
       <meshStandardMaterial 
         color={color}
         wireframe
@@ -124,17 +125,21 @@ function Scene() {
       <FloatingSphere />
       
       {/* Particles */}
-      <Particles count={150} />
+      <Particles count={100} />
     </>
   );
 }
 
-export function RingScene() {
+export function RingScene({ staticScene = false }: { staticScene?: boolean }) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <div className="fixed inset-0 z-0 opacity-60">
+    <div className="pointer-events-none fixed inset-0 z-0 opacity-45">
       <Canvas
+        frameloop={staticScene || reduceMotion ? 'demand' : 'always'}
         camera={{ position: [0, 0, 8], fov: 45 }}
-        gl={{ antialias: true, alpha: true }}
+        dpr={[1, 1.25]}
+        gl={{ antialias: false, alpha: true, powerPreference: 'low-power' }}
         style={{ background: 'transparent' }}
       >
         <Scene />

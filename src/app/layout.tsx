@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Great_Vibes, Playfair_Display, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { SmoothScroll } from "@/components/SmoothScroll";
 import { SitePreloader } from "@/components/SitePreloader";
 
 const geistSans = Geist({
@@ -47,7 +46,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${spaceGrotesk.variable} ${greatVibes.variable} antialiased bg-black text-[var(--foreground)]`}
       >
-        <SmoothScroll />
         <SitePreloader />
         
         {/* Noise overlay for texture - kept behind main content with z-index 0 */}
